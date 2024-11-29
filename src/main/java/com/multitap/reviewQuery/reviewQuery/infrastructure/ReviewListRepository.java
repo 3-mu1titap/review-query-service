@@ -19,4 +19,7 @@ public interface ReviewListRepository extends MongoRepository<ReviewList, String
 
     @Query("{ 'reviewInfo.mentoringUuid': ?0 }")
     Page<ReviewList> findByMentoringUuid(String mentoringUuid, Pageable pageable);
+
+    @Query("{ 'mentorUuid': ?0 }")
+    Page<ReviewList> findByMentorUuid(String mentorUuid, Pageable pageable);
 }

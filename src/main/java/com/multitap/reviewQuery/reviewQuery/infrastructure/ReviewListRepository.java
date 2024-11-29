@@ -28,4 +28,8 @@ public interface ReviewListRepository extends MongoRepository<ReviewList, String
 
     @Query(value = "{ 'mentorUuid': ?0 }", count = true)
     Long countByMentorUuid(String mentorUuid);
+
+    @Query(value = "{ 'reviewInfo.mentoringUuid': ?0 }",
+            sort = "{ 'reviewInfo.score': -1, 'reviewInfo.wroteAt': -1 }")
+    List<ReviewList> findTopReviewListsByMentoringUuid(String mentoringUuid, Pageable pageable);
 }

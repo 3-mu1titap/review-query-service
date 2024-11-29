@@ -53,12 +53,23 @@ public class ReviewListServiceImpl implements ReviewListService {
 
     @Override
     public List<ReviewListResponseDto> getBestReviewByMentoringUuid(String mentoringUuid) {
-        Pageable pageable = PageRequest.of(0, 3); // 첫 3개 리뷰만 가져오기
+        Pageable pageable = PageRequest.of(0, 3);// 첫 3개 리뷰만 가져오기
+
         return reviewListRepository.findTopReviewListsByMentoringUuid(mentoringUuid, pageable)
                 .stream()
                 .map(ReviewListResponseDto::from)
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<ReviewListResponseDto> getRecentReviewByMentorUuid(String mentorUuid) {
+        Pageable pageable = PageRequest.of(0, 5);// 첫 5개 리뷰만 가져오기
+
+        return reviewListRepository.findRecentReviewListsByMentorUuid(mentorUuid, pageable)
+                .stream()
+                .map(ReviewListResponseDto::from)
+                .collect(Collectors.toList());
     }
 
 }

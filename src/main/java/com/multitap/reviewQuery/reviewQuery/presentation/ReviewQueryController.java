@@ -20,7 +20,7 @@ public class ReviewQueryController {
 
     private final ReviewListService reviewListService;
 
-    @Operation(summary = "멘토링별 리뷰 리스트 조회", description = "특정 멘토링에 작성된 리뷰 리스트를 무한스크롤로 조회합니다.")
+    @Operation(summary = "멘토링별 리뷰 리스트 조회", description = "특정 멘토링에 작성된 리뷰 리스트를 조회합니다.")
     @GetMapping("/review-list/{mentoringUuid}")
     public BaseResponse<Page<ReviewListResponseVo>> getReviewListByMentoring(
             @PathVariable String mentoringUuid,
@@ -32,7 +32,7 @@ public class ReviewQueryController {
 
     }
 
-    @Operation(summary = "멘토별 리뷰 리스트 조회", description = "특정 멘토에 대하여 작성된 리뷰 리스트를 무한스크롤로 조회합니다.")
+    @Operation(summary = "멘토별 리뷰 리스트 조회", description = "특정 멘토에 대하여 작성된 리뷰 리스트를 조회합니다.")
     @GetMapping("/review-list/mentor")
     public BaseResponse<Page<ReviewListResponseVo>> getReviewListByMentorUuid(
             @RequestHeader ("userUuid") String mentorUuid,
@@ -44,4 +44,15 @@ public class ReviewQueryController {
 
     }
 
+    @Operation(summary = "멘티별 리뷰 리스트 조회", description = "특정 멘티에 대하여 작성된 리뷰 리스트를 조회합니다.")
+    @GetMapping("/review-list/mentee")
+    public BaseResponse<Page<ReviewListResponseVo>> getReviewListByMenteeUuid(
+            @RequestHeader ("userUuid") String menteeUuid,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return new BaseResponse<>(reviewListService.getReviewListByMenteeUuid(menteeUuid, page, size)
+                .map(ReviewListResponseDto::toVo));
+
+    }
 }

@@ -63,4 +63,14 @@ public class ReviewQueryController {
         return new BaseResponse<>(reviewListService.countReviewByMentorUuid(mentorUuid));
 
     }
+
+    @Operation(summary = "멘토링별 베스트3 리뷰 조회 api", description = "특정 멘토링 대하여 작성된 평점 높은 리뷰 3가지를 조회합니다.")
+    @GetMapping("/best-review/{mentoringUuid}")
+    public BaseResponse<List<ReviewListResponseVo>> getBestReviewByMentoringUuid(@PathVariable String mentoringUuid) {
+
+        return new BaseResponse<>(reviewListService.getBestReviewByMentoringUuid(mentoringUuid)
+                .stream()
+                .map(ReviewListResponseDto::toVo)
+                .toList());
+    }
 }

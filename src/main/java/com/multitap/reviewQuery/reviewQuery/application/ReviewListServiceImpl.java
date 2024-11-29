@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -47,9 +48,17 @@ public class ReviewListServiceImpl implements ReviewListService {
 
     @Override
     public Long countReviewByMentorUuid(String mentorUuid) {
-        Long l = reviewListRepository.countByMentorUuid(mentorUuid);
-        log.info("lllll = {}", l);
-        return l;
+        return reviewListRepository.countByMentorUuid(mentorUuid);
+    }
+
+    @Override
+    public List<ReviewListResponseDto> getBestReviewByMentoringUuid(String mentoringUuid) {
+        Pageable pageable = PageRequest.of(0, 3); // 첫 3개 리뷰만 가져오기
+        return reviewListRepository.findTopReviewListsByMentoringUuid(mentoringUuid, pageable)
+                .stream()
+                .map(ReviewListResponseDto::from)
+                .collect(Collectors.toList());
+
     }
 
 }

@@ -55,4 +55,12 @@ public class ReviewQueryController {
                 .map(ReviewListResponseDto::toVo));
 
     }
+
+    @Operation(summary = "멘토별 리뷰 개수 조회", description = "특정 멘토에 대하여 작성된 리뷰의 개수를 조회합니다.")
+    @GetMapping("/count/review")
+    public BaseResponse<Long> countReviewByMentorUuid(@RequestHeader ("userUuid") String mentorUuid) {
+
+        return new BaseResponse<>(reviewListService.countReviewByMentorUuid(mentorUuid));
+
+    }
 }

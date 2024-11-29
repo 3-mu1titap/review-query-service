@@ -25,4 +25,7 @@ public interface ReviewListRepository extends MongoRepository<ReviewList, String
 
     @Query(value = "{ 'reviewInfo.menteeUuid': ?0 }")
     Page<ReviewList> findByMenteeUuid(String menteeUuid, Pageable pageable);
+
+    @Query(value = "{ 'mentorUuid': ?0 }", count = true)
+    Long countByMentorUuid(String mentorUuid);
 }

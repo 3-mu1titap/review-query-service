@@ -35,4 +35,12 @@ public class ReviewListServiceImpl implements ReviewListService {
         return reviewListRepository.findByMentorUuid(mentorUuid, pageable)
                 .map(ReviewListResponseDto::from);
     }
+
+    @Override
+    public Page<ReviewListResponseDto> getReviewListByMenteeUuid(String menteeUuid, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "wroteAt"));
+
+        return reviewListRepository.findByMenteeUuid(menteeUuid, pageable)
+                .map(ReviewListResponseDto::from);
+    }
 }

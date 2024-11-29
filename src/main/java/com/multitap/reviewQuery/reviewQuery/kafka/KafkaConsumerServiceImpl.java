@@ -31,6 +31,8 @@ public class KafkaConsumerServiceImpl implements KafkaConsumerService {
         // 1. reviewCode로 기존 데이터 조회
         Optional<ReviewList> existingReview = reviewListRepository.findById(reviewCode);
 
+        log.info("ReviewRequestDto {}", reviewRequestDto);
+
         // 2. 새 엔티티 생성 (기존 데이터가 있으면 ID 유지)
         ReviewList reviewList = existingReview
                 .map(review -> ReviewList.builder()

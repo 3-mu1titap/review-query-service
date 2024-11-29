@@ -32,4 +32,16 @@ public class ReviewQueryController {
 
     }
 
+    @Operation(summary = "멘토별 리뷰 리스트 조회", description = "특정 멘토에 대하여 작성된 리뷰 리스트를 무한스크롤로 조회합니다.")
+    @GetMapping("/review-list/mentor")
+    public BaseResponse<Page<ReviewListResponseVo>> getReviewListByMentorUuid(
+            @RequestHeader ("userUuid") String mentorUuid,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return new BaseResponse<>(reviewListService.getReviewListByMentorUuid(mentorUuid, page, size)
+                .map(ReviewListResponseDto::toVo));
+
+    }
+
 }

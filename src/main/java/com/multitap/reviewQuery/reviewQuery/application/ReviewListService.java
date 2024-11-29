@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ReviewListService {
     Page<ReviewListResponseDto> getReviewListByMentoringUuid(String mentoringUuid, int page, int size);
+    Page<ReviewListResponseDto> getReviewListByMentorUuid(String mentorUuid, int page, int size);
 }

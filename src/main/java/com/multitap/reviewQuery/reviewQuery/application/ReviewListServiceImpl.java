@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @Service
@@ -43,4 +44,12 @@ public class ReviewListServiceImpl implements ReviewListService {
         return reviewListRepository.findByMenteeUuid(menteeUuid, pageable)
                 .map(ReviewListResponseDto::from);
     }
+
+    @Override
+    public Long countReviewByMentorUuid(String mentorUuid) {
+        Long l = reviewListRepository.countByMentorUuid(mentorUuid);
+        log.info("lllll = {}", l);
+        return l;
+    }
+
 }

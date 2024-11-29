@@ -12,4 +12,5 @@ public interface ReviewListService {
     Page<ReviewListResponseDto> getReviewListByMenteeUuid(String menteeUuid, int page, int size);
     Long countReviewByMentorUuid(String mentorUuid);
     List<ReviewListResponseDto> getBestReviewByMentoringUuid(String mentoringUuid);
+    List<ReviewListResponseDto> getRecentReviewByMentorUuid(String mentorUuid);
 }

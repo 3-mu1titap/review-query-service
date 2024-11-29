@@ -73,4 +73,14 @@ public class ReviewQueryController {
                 .map(ReviewListResponseDto::toVo)
                 .toList());
     }
+
+    @Operation(summary = "멘토별 최근날짜순 리뷰 5개 조회 api", description = "특정 멘토에 대하여 작성된 최근날짜순 리뷰 5개를 조회합니다.")
+    @GetMapping("/recent-review")
+    public BaseResponse<List<ReviewListResponseVo>> getRecentReviewByMentorUuid(@RequestHeader ("userUuid") String mentorUuid) {
+
+        return new BaseResponse<>(reviewListService.getRecentReviewByMentorUuid(mentorUuid)
+                .stream()
+                .map(ReviewListResponseDto::toVo)
+                .toList());
+    }
 }

@@ -13,4 +13,5 @@ public interface ReviewListService {
     Long countReviewByMentorUuid(String mentorUuid);
     List<ReviewListResponseDto> getBestReviewByMentoringUuid(String mentoringUuid);
     List<ReviewListResponseDto> getRecentReviewByMentorUuid(String mentorUuid);
+    List<String> getProfileImageUrlsByMentoringUuid(String mentoringUuid);
 }

@@ -72,4 +72,15 @@ public class ReviewListServiceImpl implements ReviewListService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<String> getProfileImageUrlsByMentoringUuid(String mentoringUuid) {
+        Pageable pageable = PageRequest.of(0, 4);// 첫 4개 리뷰만 가져오기
+
+        return reviewListRepository.findProfileImageUrlsByMentoringUuid(mentoringUuid, pageable)
+                .stream()
+                .map(reviewList -> reviewList.getMemberInfo().getProfileImageUrl())
+                .collect(Collectors.toList());
+
+    }
+
 }

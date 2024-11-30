@@ -83,4 +83,11 @@ public class ReviewQueryController {
                 .map(ReviewListResponseDto::toVo)
                 .toList());
     }
+
+    @Operation(summary = "멘토링별 리뷰어의 프로필사진 4개 조회 api", description = "특정 멘토링에 대한 리뷰어의 프로필사진 4개를 조회합니다.")
+    @GetMapping("/profile-image/{mentoringUuid}")
+    public BaseResponse<List<String>> getProfileImageUrlsByMentoringUuid(@PathVariable String mentoringUuid) {
+
+        return new BaseResponse<>(reviewListService.getProfileImageUrlsByMentoringUuid(mentoringUuid));
+    }
 }

@@ -33,7 +33,11 @@ public interface ReviewListRepository extends MongoRepository<ReviewList, String
             sort = "{ 'reviewInfo.score': -1, 'reviewInfo.wroteAt': -1 }")
     List<ReviewList> findTopReviewListsByMentoringUuid(String mentoringUuid, Pageable pageable);
 
-    @Query(value = "{ mentorUuid: ?0 }",
+    @Query(value = "{ 'mentorUuid': ?0 }",
             sort = "{ 'reviewInfo.wroteAt': -1 }")
     List<ReviewList> findRecentReviewListsByMentorUuid(String mentorUuid, Pageable pageable);
+
+    @Query(value = "{ 'reviewInfo.mentoringUuid': ?0 }",
+            sort = "{ 'reviewInfo.wroteAt': -1 }")
+    List<ReviewList> findProfileImageUrlsByMentoringUuid(String mentoringUuid, Pageable pageable);
 }

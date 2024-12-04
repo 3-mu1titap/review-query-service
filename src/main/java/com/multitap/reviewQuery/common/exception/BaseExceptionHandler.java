@@ -14,7 +14,7 @@ public class BaseExceptionHandler {
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<BaseResponse<Void>> BaseError(BaseException e) {
         BaseResponse<Void> response = new BaseResponse<>(e.getStatus());
-        log.error("BaseException -> {} {})", e.getStatus(), e.getStatus().getMessage(), e);
+        log.error("BaseException : ", e);
         return new ResponseEntity<>(response, response.httpStatus());
     }
 

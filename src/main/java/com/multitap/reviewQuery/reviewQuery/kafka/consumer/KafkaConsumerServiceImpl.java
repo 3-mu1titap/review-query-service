@@ -1,15 +1,13 @@
-package com.multitap.reviewQuery.reviewQuery.kafka;
+package com.multitap.reviewQuery.reviewQuery.kafka.consumer;
 
 import com.multitap.reviewQuery.reviewQuery.dto.in.MemberRequestDto;
 import com.multitap.reviewQuery.reviewQuery.dto.in.ReviewRequestDto;
 import com.multitap.reviewQuery.reviewQuery.entity.ReviewList;
 import com.multitap.reviewQuery.reviewQuery.feignClient.MemberServiceFeignClient;
 import com.multitap.reviewQuery.reviewQuery.feignClient.MentoringServiceFeignClient;
-import com.multitap.reviewQuery.reviewQuery.feignClient.vo.ProfileImageNickNameVo;
 import com.multitap.reviewQuery.reviewQuery.infrastructure.ReviewListRepository;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.NickNameDto;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.ProfileImageDto;
-import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,6 +51,7 @@ public class KafkaConsumerServiceImpl implements KafkaConsumerService {
 
         // 3. 저장 (기존 ID면 업데이트, 없으면 새로 저장)
         reviewListRepository.save(reviewList);
+
     }
 
     @Override

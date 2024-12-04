@@ -1,7 +1,7 @@
 package com.multitap.reviewQuery.reviewQuery.presentation;
 
 import com.multitap.reviewQuery.reviewQuery.dto.in.ReviewRequestDto;
-import com.multitap.reviewQuery.reviewQuery.kafka.KafkaConsumerService;
+import com.multitap.reviewQuery.reviewQuery.kafka.consumer.KafkaConsumerService;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.NickNameDto;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.ProfileImageDto;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.ReviewDto;

@@ -13,14 +13,12 @@ import lombok.NoArgsConstructor;
 public class ReviewListResponseDto {
 
     private String id;
-    private String mentorUuid;
     private ReviewRequestDto reviewRequestDto;
     private MemberRequestDto memberRequestDto;
 
     @Builder
-    public ReviewListResponseDto(String id, String mentorUuid, ReviewRequestDto reviewRequestDto, MemberRequestDto memberRequestDto) {
+    public ReviewListResponseDto(String id, ReviewRequestDto reviewRequestDto, MemberRequestDto memberRequestDto) {
         this.id = id;
-        this.mentorUuid = mentorUuid;
         this.reviewRequestDto = reviewRequestDto;
         this.memberRequestDto = memberRequestDto;
     }
@@ -28,7 +26,6 @@ public class ReviewListResponseDto {
     public static ReviewListResponseDto from(ReviewList reviewList) {
         return ReviewListResponseDto.builder()
                 .id(reviewList.getId())
-                .mentorUuid(reviewList.getMentorUuid())
                 .reviewRequestDto(reviewList.getReviewInfo())
                 .memberRequestDto(reviewList.getMemberInfo())
                 .build();
@@ -37,7 +34,6 @@ public class ReviewListResponseDto {
     public ReviewListResponseVo toVo() {
         return ReviewListResponseVo.builder()
                 .id(id)
-                .mentorUuid(mentorUuid)
                 .reviewRequestDto(reviewRequestDto)
                 .memberRequestDto(memberRequestDto)
                 .build();

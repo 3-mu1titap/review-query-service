@@ -56,13 +56,13 @@ public class ReviewQueryController {
 
     }
 
-    @Operation(summary = "멘토별 리뷰 개수 조회", description = "특정 멘토에 대하여 작성된 리뷰의 개수를 조회합니다.")
-    @GetMapping("/count/review")
-    public BaseResponse<Long> countReviewByMentorUuid(@RequestHeader ("userUuid") String mentorUuid) {
-
-        return new BaseResponse<>(reviewListService.countReviewByMentorUuid(mentorUuid));
-
-    }
+//    @Operation(summary = "멘토별 리뷰 개수 조회", description = "특정 멘토에 대하여 작성된 리뷰의 개수를 조회합니다.")
+//    @GetMapping("/count/review")
+//    public BaseResponse<Long> countReviewByMentorUuid(@RequestHeader ("userUuid") String mentorUuid) {
+//
+//        return new BaseResponse<>(reviewListService.countReviewByMentorUuid(mentorUuid));
+//
+//    }
 
     @Operation(summary = "멘토링별 베스트3 리뷰 조회 api", description = "특정 멘토링 대하여 작성된 평점 높은 리뷰 3가지를 조회합니다.")
     @GetMapping("/best-review/{mentoringUuid}")

@@ -26,7 +26,7 @@ public class ReviewListServiceImpl implements ReviewListService {
     public Page<ReviewListResponseDto> getReviewListByMentoringUuid(String mentoringUuid, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "wroteAt"));
 
-        return reviewListRepository.findByMentoringUuid(mentoringUuid, pageable)
+        return reviewListRepository.findByMentoringUuidAndIsDeletedFalse(mentoringUuid, pageable)
                 .map(ReviewListResponseDto::from);
     }
 
@@ -34,7 +34,7 @@ public class ReviewListServiceImpl implements ReviewListService {
     public Page<ReviewListResponseDto> getReviewListByMentorUuid(String mentorUuid, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "wroteAt"));
 
-        return reviewListRepository.findByMentorUuid(mentorUuid, pageable)
+        return reviewListRepository.findByMentorUuidAndIsDeletedFalse(mentorUuid, pageable)
                 .map(ReviewListResponseDto::from);
     }
 
@@ -42,20 +42,20 @@ public class ReviewListServiceImpl implements ReviewListService {
     public Page<ReviewListResponseDto> getReviewListByMenteeUuid(String menteeUuid, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "wroteAt"));
 
-        return reviewListRepository.findByMenteeUuid(menteeUuid, pageable)
+        return reviewListRepository.findByMenteeUuidAndIsDeletedFalse(menteeUuid, pageable)
                 .map(ReviewListResponseDto::from);
     }
 
     @Override
     public Long countReviewByMentorUuid(String mentorUuid) {
-        return reviewListRepository.countByMentorUuid(mentorUuid);
+        return reviewListRepository.countByMentorUuidAndIsDeletedFalse(mentorUuid);
     }
 
     @Override
     public List<ReviewListResponseDto> getBestReviewByMentoringUuid(String mentoringUuid) {
         Pageable pageable = PageRequest.of(0, 3);// 첫 3개 리뷰만 가져오기
 
-        return reviewListRepository.findTopReviewListsByMentoringUuid(mentoringUuid, pageable)
+        return reviewListRepository.findTopReviewListsByMentoringUuidAndIsDeletedFalse(mentoringUuid, pageable)
                 .stream()
                 .map(ReviewListResponseDto::from)
                 .collect(Collectors.toList());
@@ -66,7 +66,7 @@ public class ReviewListServiceImpl implements ReviewListService {
     public List<ReviewListResponseDto> getRecentReviewByMentorUuid(String mentorUuid) {
         Pageable pageable = PageRequest.of(0, 5);// 첫 5개 리뷰만 가져오기
 
-        return reviewListRepository.findRecentReviewListsByMentorUuid(mentorUuid, pageable)
+        return reviewListRepository.findRecentReviewListsByMentorUuidAndIsDeletedFalse(mentorUuid, pageable)
                 .stream()
                 .map(ReviewListResponseDto::from)
                 .collect(Collectors.toList());
@@ -76,7 +76,7 @@ public class ReviewListServiceImpl implements ReviewListService {
     public List<String> getProfileImageUrlsByMentoringUuid(String mentoringUuid) {
         Pageable pageable = PageRequest.of(0, 4);// 첫 4개 리뷰만 가져오기
 
-        return reviewListRepository.findProfileImageUrlsByMentoringUuid(mentoringUuid, pageable)
+        return reviewListRepository.findProfileImageUrlsByMentoringUuidAndIsDeletedFalse(mentoringUuid, pageable)
                 .stream()
                 .map(reviewList -> reviewList.getMemberInfo().getProfileImageUrl())
                 .collect(Collectors.toList());

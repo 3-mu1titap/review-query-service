@@ -16,6 +16,7 @@ public class ReviewDto {
     private String reviewTitle;
     private String reviewComment;
     private String menteeUuid;
+    private String mentorUuid;
     private String mentoringUuid;
     private String mentoringSessionUuid;
     private int score;
@@ -23,11 +24,12 @@ public class ReviewDto {
     private LocalDateTime wroteAt;
 
     @Builder
-    public ReviewDto(String reviewCode, String reviewTitle, String reviewComment, String menteeUuid, String mentoringUuid, String mentoringSessionUuid, int score, boolean isDeleted, LocalDateTime wroteAt) {
+    public ReviewDto(String reviewCode, String reviewTitle, String reviewComment, String menteeUuid, String mentorUuid, String mentoringUuid, String mentoringSessionUuid, int score, boolean isDeleted, LocalDateTime wroteAt) {
         this.reviewCode = reviewCode;
         this.reviewTitle = reviewTitle;
         this.reviewComment = reviewComment;
         this.menteeUuid = menteeUuid;
+        this.mentorUuid = mentorUuid;
         this.mentoringUuid = mentoringUuid;
         this.mentoringSessionUuid = mentoringSessionUuid;
         this.score = score;

@@ -21,7 +21,6 @@ configurations {
 
 repositories {
 	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
 }
 
 ext {
@@ -38,7 +37,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 
 	implementation 'org.springframework.kafka:spring-kafka' // Kafka
 
@@ -47,7 +48,7 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-common:2.0.2'
 
 	// Jackson 라이브러리
-	implementation 'com.fasterxml.jackson.core:jackson-databind'
+//	implementation 'com.fasterxml.jackson.core:jackson-databind'
 
 	// Spring Cloud OpenFeign 의존성
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'

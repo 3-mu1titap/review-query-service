@@ -4,7 +4,6 @@ import com.multitap.reviewQuery.reviewQuery.dto.in.MemberRequestDto;
 import com.multitap.reviewQuery.reviewQuery.dto.in.ReviewRequestDto;
 import com.multitap.reviewQuery.reviewQuery.entity.ReviewList;
 import com.multitap.reviewQuery.reviewQuery.feignClient.MemberServiceFeignClient;
-import com.multitap.reviewQuery.reviewQuery.feignClient.MentoringServiceFeignClient;
 import com.multitap.reviewQuery.reviewQuery.infrastructure.ReviewListRepository;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.NickNameDto;
 import com.multitap.reviewQuery.reviewQuery.kafka.messageIn.ProfileImageDto;
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class KafkaConsumerServiceImpl implements KafkaConsumerService {
 
     private final ReviewListRepository reviewListRepository;
-    private final MentoringServiceFeignClient mentoringServiceFeignClient;
     private final MemberServiceFeignClient memberServiceFeignClient;
 
     @Override
@@ -37,14 +35,11 @@ public class KafkaConsumerServiceImpl implements KafkaConsumerService {
                         .id(review.getId()) // 기존 ID 유지
                         .reviewInfo(reviewRequestDto) // 새로운 ReviewInfo로 대체
                         .memberInfo(review.getMemberInfo()) // 필요시 기존 데이터 유지
-                        .mentorUuid(review.getMentorUuid()) // 필요시 기존 데이터 유지
                         .build())
                 .orElseGet(() -> {
-                    String mentorUuid = mentoringServiceFeignClient.getMentorUuidBySessionUuid(reviewRequestDto.getMentoringSessionUuid());
-                    log.info("memtorUuid: {}", mentorUuid);
                     MemberRequestDto memberRequestDto = MemberRequestDto.from(memberServiceFeignClient.getMemberProfileImageForReview(reviewRequestDto.getMenteeUuid()));
                     log.info("memberRequestDto: {}", memberRequestDto);
-                    return reviewRequestDto.toEntity(reviewRequestDto, memberRequestDto, mentorUuid, reviewCode);
+                    return reviewRequestDto.toEntity(reviewRequestDto, memberRequestDto, reviewCode);
                 }); // 없으면 새로 생성
 
         log.info("reviewList {}", reviewList);
@@ -67,7 +62,6 @@ public class KafkaConsumerServiceImpl implements KafkaConsumerService {
                         .id(review.getId()) // 기존 ID 유지
                         .reviewInfo(review.getReviewInfo()) // 새로운 ReviewInfo로 대체
                         .memberInfo(MemberRequestDto.of(nickNameDto.getNickName(), review.getMemberInfo().getProfileImageUrl())) // 필요시 기존 데이터 유지
-                        .mentorUuid(review.getMentorUuid()) // 필요시 기존 데이터 유지
                         .build())
                 .toList();
 
@@ -87,7 +81,6 @@ public class KafkaConsumerServiceImpl implements KafkaConsumerService {
                         .id(review.getId()) // 기존 ID 유지
                         .reviewInfo(review.getReviewInfo()) // 새로운 ReviewInfo로 대체
                         .memberInfo(MemberRequestDto.of(review.getMemberInfo().getNickName(), profileImageDto.getProfileImageUrl())) // 필요시 기존 데이터 유지
-                        .mentorUuid(review.getMentorUuid()) // 필요시 기존 데이터 유지
                         .build())
                 .toList();
 

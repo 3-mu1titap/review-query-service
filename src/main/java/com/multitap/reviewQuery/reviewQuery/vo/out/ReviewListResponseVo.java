@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 public class ReviewListResponseVo {
 
     private String id;
-    private String mentorUuid;
     private ReviewRequestDto reviewRequestDto;
     private MemberRequestDto memberRequestDto;
 }

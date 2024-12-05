@@ -18,5 +18,4 @@ public class ReviewList {
     private String id;
     private ReviewRequestDto reviewInfo;
     private MemberRequestDto memberInfo;
-    private String mentorUuid;
 }

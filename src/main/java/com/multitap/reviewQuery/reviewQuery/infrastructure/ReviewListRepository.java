@@ -20,20 +20,20 @@ public interface ReviewListRepository extends MongoRepository<ReviewList, String
     @Query(value = "{ 'reviewInfo.mentoringUuid': ?0, 'reviewInfo.isDeleted': false }")
     Page<ReviewList> findByMentoringUuidAndIsDeletedFalse(String mentoringUuid, Pageable pageable);
 
-    @Query(value = "{ 'mentorUuid': ?0, 'reviewInfo.isDeleted': false }")
+    @Query(value = "{ 'reviewInfo.mentorUuid': ?0, 'reviewInfo.isDeleted': false }")
     Page<ReviewList> findByMentorUuidAndIsDeletedFalse(String mentorUuid, Pageable pageable);
 
     @Query(value = "{ 'reviewInfo.menteeUuid': ?0, 'reviewInfo.isDeleted': false }")
     Page<ReviewList> findByMenteeUuidAndIsDeletedFalse(String menteeUuid, Pageable pageable);
 
-    @Query(value = "{ 'mentorUuid': ?0, 'reviewInfo.isDeleted': false }", count = true)
+    @Query(value = "{ 'reviewInfo.mentorUuid': ?0, 'reviewInfo.isDeleted': false }", count = true)
     Long countByMentorUuidAndIsDeletedFalse(String mentorUuid);
 
     @Query(value = "{ 'reviewInfo.mentoringUuid': ?0, 'reviewInfo.isDeleted': false }",
             sort = "{ 'reviewInfo.score': -1, 'reviewInfo.wroteAt': -1 }")
     List<ReviewList> findTopReviewListsByMentoringUuidAndIsDeletedFalse(String mentoringUuid, Pageable pageable);
 
-    @Query(value = "{ 'mentorUuid': ?0, 'reviewInfo.isDeleted': false }",
+    @Query(value = "{ 'reviewInfo.mentorUuid': ?0, 'reviewInfo.isDeleted': false }",
             sort = "{ 'reviewInfo.wroteAt': -1 }")
     List<ReviewList> findRecentReviewListsByMentorUuidAndIsDeletedFalse(String mentorUuid, Pageable pageable);
 

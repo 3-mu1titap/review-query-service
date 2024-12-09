@@ -3,7 +3,9 @@ package com.multitap.reviewQuery.reviewQuery.presentation;
 import com.multitap.reviewQuery.common.response.BaseResponse;
 import com.multitap.reviewQuery.reviewQuery.application.ReviewListService;
 import com.multitap.reviewQuery.reviewQuery.dto.out.ReviewListResponseDto;
+import com.multitap.reviewQuery.reviewQuery.dto.out.ReviewerProfileImageResponseDto;
 import com.multitap.reviewQuery.reviewQuery.vo.out.ReviewListResponseVo;
+import com.multitap.reviewQuery.reviewQuery.vo.out.ReviewerProfileImageResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -86,8 +88,11 @@ public class ReviewQueryController {
 
     @Operation(summary = "멘토링별 리뷰어의 프로필사진 4개 조회 api", description = "특정 멘토링에 대한 리뷰어의 프로필사진 4개를 조회합니다.")
     @GetMapping("/profile-image/{mentoringUuid}")
-    public BaseResponse<List<String>> getProfileImageUrlsByMentoringUuid(@PathVariable String mentoringUuid) {
+    public BaseResponse<List<ReviewerProfileImageResponseVo>> getProfileImageUrlsByMentoringUuid(@PathVariable String mentoringUuid) {
 
-        return new BaseResponse<>(reviewListService.getProfileImageUrlsByMentoringUuid(mentoringUuid));
+        return new BaseResponse<>(reviewListService.getProfileImageUrlsByMentoringUuid(mentoringUuid)
+                .stream()
+                .map(ReviewerProfileImageResponseDto::toVo)
+                .toList());
     }
 }

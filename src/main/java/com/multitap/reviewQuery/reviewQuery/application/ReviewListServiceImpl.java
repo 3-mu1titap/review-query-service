@@ -1,6 +1,7 @@
 package com.multitap.reviewQuery.reviewQuery.application;
 
 import com.multitap.reviewQuery.reviewQuery.dto.out.ReviewListResponseDto;
+import com.multitap.reviewQuery.reviewQuery.dto.out.ReviewerProfileImageResponseDto;
 import com.multitap.reviewQuery.reviewQuery.entity.ReviewList;
 import com.multitap.reviewQuery.reviewQuery.infrastructure.ReviewListRepository;
 import lombok.RequiredArgsConstructor;
@@ -73,12 +74,12 @@ public class ReviewListServiceImpl implements ReviewListService {
     }
 
     @Override
-    public List<String> getProfileImageUrlsByMentoringUuid(String mentoringUuid) {
+    public List<ReviewerProfileImageResponseDto> getProfileImageUrlsByMentoringUuid(String mentoringUuid) {
         Pageable pageable = PageRequest.of(0, 4);// 첫 4개 리뷰만 가져오기
 
         return reviewListRepository.findProfileImageUrlsByMentoringUuidAndIsDeletedFalse(mentoringUuid, pageable)
                 .stream()
-                .map(reviewList -> reviewList.getMemberInfo().getProfileImageUrl())
+                .map(ReviewerProfileImageResponseDto::from)
                 .collect(Collectors.toList());
 
     }

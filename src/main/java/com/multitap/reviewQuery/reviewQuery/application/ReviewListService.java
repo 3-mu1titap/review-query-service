@@ -1,6 +1,7 @@
 package com.multitap.reviewQuery.reviewQuery.application;
 
 import com.multitap.reviewQuery.reviewQuery.dto.out.ReviewListResponseDto;
+import com.multitap.reviewQuery.reviewQuery.dto.out.ReviewerProfileImageResponseDto;
 import org.springframework.data.domain.Page;
 
 import java.io.IOException;
@@ -13,5 +14,5 @@ public interface ReviewListService {
     Long countReviewByMentorUuid(String mentorUuid);
     List<ReviewListResponseDto> getBestReviewByMentoringUuid(String mentoringUuid);
     List<ReviewListResponseDto> getRecentReviewByMentorUuid(String mentorUuid);
-    List<String> getProfileImageUrlsByMentoringUuid(String mentoringUuid);
+    List<ReviewerProfileImageResponseDto> getProfileImageUrlsByMentoringUuid(String mentoringUuid);
 }
